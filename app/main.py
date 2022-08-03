@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from app.api.v1.api import router as api_router
+
 app = FastAPI()
 
 
@@ -7,6 +9,4 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/users")
-async def get_users():
-    return {"message": "Get users!"}
+app.include_router(api_router, prefix="/api/v1")
