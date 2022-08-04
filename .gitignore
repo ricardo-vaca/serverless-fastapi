@@ -1,3 +1,9 @@
 __pycache__
-venv
+env
 lambda.zip
+
+.terraform
+.terraform.*
+terraform.*
+
+.DS_Store
