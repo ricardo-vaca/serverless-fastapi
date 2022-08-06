@@ -4,9 +4,14 @@
 
 ### Create an S3 Bucket and ECR 🏗
 
-1. cd ./terraform
-2. terraform apply -target=aws_ecr_repository.lambda_model_repository -target=aws_s3_bucket.lambda_model_bucket
-
+1. Moving to terraform directory
+```
+cd ./terraform
+```
+2. Deploy ECR resource from terraform
+```
+terraform apply -target=aws_ecr_repository.lambda_model_repository
+```
 ### Build and push the docker image to ECR 🔨
 
 1. Set the registry id and the aws region variables:
@@ -19,8 +24,14 @@ export REGISTRY_ID=$(aws ecr \
 
 export IMAGE_URI=${REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME}
 ```
-2. cd ..
-3. docker build -t $IMAGE_URI . && docker push $IMAGE_URI:$IMAGE_TAG
+2. Moving to the root repository
+```
+cd ..
+```
+3. Building and pushing the docker image with the previously defined variables
+```
+docker build -t $IMAGE_URI . && docker push $IMAGE_URI:$IMAGE_TAG
+```
 
 ### Lets deploy Lambda and ApiGateway 🚀
 
