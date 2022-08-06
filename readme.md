@@ -26,3 +26,11 @@ export IMAGE_URI=${REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME
 
 1. cd terraform
 2. terraform apply
+
+### References
+
+1. https://towardsdatascience.com/building-a-serverless-containerized-machine-learning-model-api-using-aws-lambda-api-gateway-and-a73a091ff82e
+
+2. https://www.deadbear.io/simple-serverless-fastapi-with-aws-lambda/
+
+3. https://www.youtube.com/watch?v=wlVcso4Ut5o 
