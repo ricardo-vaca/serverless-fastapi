@@ -1,17 +1,28 @@
-# Serverless + FastAPI (Mangum) + Terraform
+# Serverless + FastAPI (Mangum) + Docker + Terraform
 
 ## How to try this? 🤔
 
-### Generate the lambda zip file (Unix/macOS) 🏗
+### Create an S3 Bucket and ECR 🏗
 
-1. Init venv: "python3 -m virtualenv -p python3.8 env"
-2. Activate venv: "source ./env/bin/activate"
-3. Install dependencies: "python3 -m pip install -r requirements.txt"
-4. Create zip file with the venv packages: "cd env/lib/python3.8/site-packages && zip -r9 ../../../../lambda.zip ."
-5. Add app files to the zip: "cd ../../../../ && zip -g lambda.zip -r app"
+1. cd ./terraform
+2. terraform apply -target=aws_ecr_repository.lambda_model_repository -target=aws_s3_bucket.lambda_model_bucket
 
-### Lets deploy this 🚀
+### Build and push the docker image to ECR 🔨
 
-1. terraform init
-2. terraform plan # if all it's okay then go to the next step
-3. terraform apply
+1. Set the registry id and the aws region variables:
+```
+export REGISTRY_ID=$(aws ecr \
+  --profile lambda-model \
+  describe-repositories \
+  --query 'repositories[?repositoryName == `'$IMAGE_NAME'`].registryId' \
+  --output text)
+
+export IMAGE_URI=${REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME}
+```
+2. cd ..
+3. docker build -t $IMAGE_URI . && docker push $IMAGE_URI:$IMAGE_TAG
+
+### Lets deploy Lambda and ApiGateway 🚀
+
+1. cd terraform
+2. terraform apply
