@@ -35,8 +35,14 @@ docker build -t $IMAGE_URI . && docker push $IMAGE_URI:$IMAGE_TAG
 
 ### Lets deploy Lambda and ApiGateway 🚀
 
-1. cd terraform
-2. terraform apply
+1. Moving to the terraform directory
+```
+cd terraform
+```
+2. Deploying Lambda and Api Gateway resources from terraform
+```
+terraform apply
+```
 
 ### References
 
