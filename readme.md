@@ -2,47 +2,17 @@
 
 ## How to try this? 🤔
 
-### Create an S3 Bucket and ECR 🏗
+### Requirement
 
-1. Moving to terraform directory
-```
-cd ./terraform
-```
-2. Deploy ECR resource from terraform
-```
-terraform apply -target=aws_ecr_repository.lambda_model_repository
-```
-### Build and push the docker image to ECR 🔨
+You must have logged in AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html
 
-1. Set the registry id and the aws region variables:
-```
-export REGISTRY_ID=$(aws ecr \
-  --profile lambda-model \
-  describe-repositories \
-  --query 'repositories[?repositoryName == `'$IMAGE_NAME'`].registryId' \
-  --output text)
+### Create an Elastic Container Registry (ECR) 🏗
 
-export IMAGE_URI=${REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME}
-```
-2. Moving to the root repository
-```
-cd ..
-```
-3. Building and pushing the docker image with the previously defined variables
-```
-docker build -t $IMAGE_URI . && docker push $IMAGE_URI:$IMAGE_TAG
-```
+1. make ecr
 
 ### Lets deploy Lambda and ApiGateway 🚀
 
-1. Moving to the terraform directory
-```
-cd terraform
-```
-2. Deploying Lambda and Api Gateway resources from terraform
-```
-terraform apply
-```
+1. make deploy
 
 ### References
 
@@ -50,4 +20,4 @@ terraform apply
 
 2. https://www.deadbear.io/simple-serverless-fastapi-with-aws-lambda/
 
-3. https://www.youtube.com/watch?v=wlVcso4Ut5o 
+3. https://www.youtube.com/watch?v=wlVcso4Ut5o

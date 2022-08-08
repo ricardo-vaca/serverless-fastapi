@@ -4,19 +4,13 @@ resource "aws_lambda_function" "lambda_model_function" {
   role = aws_iam_role.lambda_model_role.arn
 
   # tag is required, "source image ... is not valid" error will pop up
-  image_uri    = "${aws_ecr_repository.lambda_model_repository.repository_url}:${local.image_version}"
+  image_uri    = "${aws_ecr_repository.serverless_fastapi_repository.repository_url}:${local.image_version}"
   package_type = "Image"
 
   # we can check the memory usage in the lambda dashboard, sklearn is a bit memory hungry..
   memory_size = 256
 
   architectures = [ "arm64" ]
-
-  environment {
-    variables = {
-      BUCKET_NAME = local.bucket_name
-    }
-  }
 }
 
 # as per https://learn.hashicorp.com/tutorials/terraform/lambda-api-gateway
@@ -61,13 +55,6 @@ resource "aws_iam_policy" "lambda_model_policy" {
         "logs:PutLogEvents"
       ],
       "Resource": "arn:aws:logs:*:*:*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": "arn:aws:s3:::${local.bucket_name}/*"
     }
   ]
 }

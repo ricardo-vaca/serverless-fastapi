@@ -1,17 +1,9 @@
-variable "aws_profile" {
-  type    = string
-  default = "lambda-model"
-}
-
 # constant settings
 locals {
-  image_name    = "serverless-fastapi-container"
+  image_name    = "serverless_fastapi_container"
   image_version = "latest"
 
-  bucket_name = "serverless-fastapi-bucket"
+  lambda_function_name = "serverless_fastapi_function"
 
-  lambda_function_name = "serverless-fastapi-function"
-
-  api_name = "serverless-fastapi"
-  api_path = "serverless-fastapi"
+  api_name = "serverless_fastapi"
 }
