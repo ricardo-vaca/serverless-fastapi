@@ -30,3 +30,8 @@ resource "aws_lambda_permission" "api-gateway" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.lambda-api.execution_arn}/*/*/*"
 }
+
+output "apigatewayv2_api_api_endpoint" {
+  description = "The URI of the API"
+  value       = try(aws_apigatewayv2_api.lambda-api.api_endpoint, "")
+}
