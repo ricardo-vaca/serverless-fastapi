@@ -54,6 +54,10 @@ jobs:
         run: terraform plan -no-color
         working-directory: ${{ env.WORKING_DIR }}
 
+      - name: Terraform destroy
+        id: destroy
+        run: terraform apply -destroy -auto-approve -input=false
+
       - name: Terraform apply
         id: apply
         env:
