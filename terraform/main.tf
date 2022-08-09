@@ -1,8 +1,8 @@
 # Lambda
 resource "aws_lambda_function" "secure_store_lambda_function" {
-  function_name = local.lambda_function_name
+  function_name = "secure-store-lambda-function"
   description = "Secure Store lambda function"
-  
+
   role = aws_iam_role.secure_store_lambda_role.arn
   image_uri    = var.SECURE_STORE_IMAGE
 
@@ -81,7 +81,7 @@ resource "aws_apigatewayv2_integration" "secure_store_apigateway_integration" {
 resource "aws_apigatewayv2_route" "secure_store_apigateway_route" {
   api_id    = aws_apigatewayv2_api.secure_store_apigateway.id
   route_key = "GET /{proxy+}"
-  target    = "integrations/${aws_apigatewayv2_integration.lambda-integration.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.secure_store_apigateway_integration.id}"
 }
 
 resource "aws_lambda_permission" "api-gateway" {
