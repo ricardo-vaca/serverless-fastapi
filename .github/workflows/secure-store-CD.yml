@@ -10,6 +10,9 @@ jobs:
     runs-on: "ubuntu-latest"
     env:
       WORKING_DIR: terraform/
+      TF_VAR_REGION: ${{ secrets.TF_VAR_REGION }}
+      TF_VAR_ACCESS_KEY: ${{ secrets.TF_VAR_ACCESS_KEY }}
+      TF_VAR_SECRET_KEY: ${{ secrets.TF_VAR_SECRET_KEY }}
     
     steps:
       - name: Checkout
