@@ -37,31 +37,31 @@ resource "aws_iam_role" "secure_store_lambda_role" {
 EOF
 }
 
-# resource "aws_iam_policy" "secure_store_lambda_policy" {
-#   name = "secure-store-lambda-policy"
+resource "aws_iam_policy" "secure_store_lambda_policy" {
+  name = "secure-store-lambda-policy"
 
-#   policy = <<EOF
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Effect": "Allow",
-#       "Action": [
-#         "logs:CreateLogGroup",
-#         "logs:CreateLogStream",
-#         "logs:PutLogEvents"
-#       ],
-#       "Resource": "arn:aws:logs:*:*:*"
-#     }
-#   ]
-# }
-# EOF
-# }
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    }
+  ]
+}
+EOF
+}
 
-# resource "aws_iam_role_policy_attachment" "secure_store_lambda_policy_attachement" {
-#   role       = aws_iam_role.secure_store_lambda_role.name
-#   policy_arn = aws_iam_policy.secure_store_lambda_policy.arn
-# }
+resource "aws_iam_role_policy_attachment" "secure_store_lambda_policy_attachement" {
+  role       = aws_iam_role.secure_store_lambda_role.name
+  policy_arn = aws_iam_policy.secure_store_lambda_policy.arn
+}
 
 # API Gateway
 resource "aws_apigatewayv2_api" "secure_store_apigateway" {
