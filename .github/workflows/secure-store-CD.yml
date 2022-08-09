@@ -47,6 +47,6 @@ jobs:
       - name: Terraform plan
         id: plan
         env:
-          TF_VAR_SECURE_STORE_IMAGE: ${{ format('{0}/{1}:{2}'), steps.login-ecr.outputs.registry, secrets.SECURE_STORE_IMAGE, github.sha }}
+          TF_VAR_SECURE_STORE_IMAGE: ${{ format('{0}/{1}:{2}', steps.login-ecr.outputs.registry, secrets.SECURE_STORE_IMAGE, github.sha) }}
         run: terraform plan -no-color
         working-directory: ${{ env.WORKING_DIR }}
