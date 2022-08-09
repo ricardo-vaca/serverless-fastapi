@@ -89,7 +89,7 @@ resource "aws_lambda_permission" "api-gateway" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.secure_store_lambda_function.arn
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.lambda-api.execution_arn}/*/*/*"
+  source_arn    = "${aws_apigatewayv2_api.secure_store_apigateway.execution_arn}/*/*/*"
 }
 
 output "apigatewayv2_api_api_endpoint" {
