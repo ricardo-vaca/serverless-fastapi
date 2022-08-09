@@ -3,7 +3,7 @@ resource "aws_lambda_function" "secure_store_lambda_function" {
   function_name = "secure-store-lambda-function"
   description   = "Secure Store lambda function"
 
-  # role      = aws_iam_role.secure_store_lambda_role.arn
+  role      = aws_iam_role.secure_store_lambda_role.arn
   image_uri = var.SECURE_STORE_IMAGE
 
   package_type = "Image"
@@ -17,25 +17,25 @@ resource "aws_lambda_function" "secure_store_lambda_function" {
 # }
 
 # IAM role and policy for Lambda
-# resource "aws_iam_role" "secure_store_lambda_role" {
-#   name = "secure-store-lambda-role"
+resource "aws_iam_role" "secure_store_lambda_role" {
+  name = "secure-store-lambda-role"
 
-#   assume_role_policy = <<EOF
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Sid": "",
-#       "Effect": "Allow",
-#       "Principal": {
-#         "Service": "lambda.amazonaws.com"
-#       },
-#       "Action": "sts:AssumeRole"
-#     }
-#   ]
-# }
-# EOF
-# }
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
 
 # resource "aws_iam_policy" "secure_store_lambda_policy" {
 #   name = "secure-store-lambda-policy"
