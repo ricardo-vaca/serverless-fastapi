@@ -11,11 +11,6 @@ resource "aws_lambda_function" "secure_store_lambda_function" {
   #architectures = [ "arm64" ]
 }
 
-# ECR
-resource "aws_ecr_repository" "secure_store_ecr" {
-  name  = var.SECURE_STORE_IMAGE
-}
-
 # IAM role and policy for Lambda
 resource "aws_iam_role" "secure_store_lambda_role" {
   name = "secure-store-lambda-role"
