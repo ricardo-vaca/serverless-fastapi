@@ -50,3 +50,10 @@ jobs:
           TF_VAR_SECURE_STORE_IMAGE: ${{ format('{0}/{1}:{2}', steps.login-ecr.outputs.registry, secrets.SECURE_STORE_IMAGE, github.sha) }}
         run: terraform plan -no-color
         working-directory: ${{ env.WORKING_DIR }}
+
+      - name: Terraform apply
+        id: apply
+        env:
+          TF_VAR_SECURE_STORE_IMAGE: ${{ format('{0}/{1}:{2}', steps.login-ecr.outputs.registry, secrets.SECURE_STORE_IMAGE, github.sha) }}
+        run: terraform apply -auto-approve -input=false
+        working-directory: ${{ env.WORKING_DIR }}
