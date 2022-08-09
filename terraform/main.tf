@@ -8,7 +8,7 @@ resource "aws_lambda_function" "secure_store_lambda_function" {
 
   package_type = "Image"
   memory_size = 256
-  architectures = [ "arm64" ]
+  #architectures = [ "arm64" ]
 }
 
 # IAM role and policy for Lambda
