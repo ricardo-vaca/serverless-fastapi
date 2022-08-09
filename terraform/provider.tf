@@ -5,12 +5,6 @@ terraform {
         version = "~> 4.9.0"
     }
   }
-  backend "s3" {
-    bucket = "tfstate-bucket-ioet-secure-store"
-    key = "terraform/state/secure_store_lambda.tfstate"
-    region = "us-east-1"
-    encrypt = true
-  }
 }
 
 provider "aws" {
