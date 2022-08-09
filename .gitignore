@@ -7,3 +7,5 @@ lambda.zip
 terraform.*
 
 .DS_Store
+
+.vscode

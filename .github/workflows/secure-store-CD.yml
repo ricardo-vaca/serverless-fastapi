@@ -1,0 +1,52 @@
+name: Secure-Store-CD
+
+on:
+  push:
+    branches:
+      - "dev"
+
+jobs:
+  cd:
+    runs-on: "ubuntu-latest"
+    env:
+      WORKING_DIR: terraform/
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.TF_VAR_ACCESS_KEY }}
+          aws-secret-access-key-id: ${{ secrets.TF_VAR_SECRET_KEY }}
+          aws-region: ${{ secrets.TF_VAR_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag and push Secure Store image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.SECURE_STORE_IMAGE }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -f ./Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.7
+
+      - name: Terraform init
+        run: terraform init
+        working-directory: ${{ env.WORKING_DIR }}
+
+      - name: Terraform plan
+        id: plan
+        env:
+          TF_VAR_SECURE_STORE_IMAGE: ${{ format('{0}/{1}:{2}'), steps.login-ecr.outputs.registry, secrets.SECURE_STORE_IMAGE, github.sha }}
+        run: terraform plan -no-color
+        working-directory: ${{ env.WORKING_DIR }}

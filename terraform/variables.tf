@@ -1,9 +1,22 @@
-# constant settings
-locals {
-  image_name    = "serverless_fastapi_container"
-  image_version = "latest"
+variable "REGION" {
+  description = "AWS Region"
+  type = string
+}
 
-  lambda_function_name = "serverless_fastapi_function"
+variable "ACCESS_KEY" {
+  description = "AWS access key"
+  type = string
+  sensitive = true
+}
 
-  api_name = "serverless_fastapi"
+variable "SECRET_KEY" {
+  description = "AWS secret key"
+  type = string
+  sensitive = true
+}
+
+variable "SECURE_STORE_IMAGE" {
+  description = "Secure Store docker image for the lambda that is stored in ECR"
+  type = string
+  sensitive = true
 }
