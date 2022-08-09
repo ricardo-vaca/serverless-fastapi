@@ -19,7 +19,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.TF_VAR_ACCESS_KEY }}
-          aws-secret-access-key-id: ${{ secrets.TF_VAR_SECRET_KEY }}
+          aws-secret-access-key: ${{ secrets.TF_VAR_SECRET_KEY }}
           aws-region: ${{ secrets.TF_VAR_REGION }}
 
       - name: Login to Amazon ECR
