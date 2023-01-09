@@ -15,6 +15,7 @@ IMAGE_URI := $(REGISTRY_ID).dkr.ecr.$(AWS_REGION).amazonaws.com
 ecr:
 		@echo "** Creating the ECR repository **"
 		cd terraform && \
+		terraform init && \
 		terraform apply -target=aws_ecr_repository.$(ECR_NAME) -auto-approve
 
 deploy:
