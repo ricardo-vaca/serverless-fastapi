@@ -10,7 +10,8 @@ resource "aws_lambda_function" "lambda_model_function" {
   # we can check the memory usage in the lambda dashboard, sklearn is a bit memory hungry..
   memory_size = 256
 
-  architectures = [ "arm64" ]
+  # Uncomment the next line if you have an M1 processor
+  # architectures = [ "arm64" ] 
 }
 
 # as per https://learn.hashicorp.com/tutorials/terraform/lambda-api-gateway
